@@ -17,7 +17,7 @@ public class PersonService {
 
     @Autowired // we inject, autowiring into PersonDao
     // Because we can implement more than one time we add @Qualifier
-    public PersonService(@Qualifier("fakeDao") PersonDao personDao) {
+    public PersonService(@Qualifier("postgres") PersonDao personDao) {
         this.personDao = personDao;
     }
 
