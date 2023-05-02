@@ -22,4 +22,9 @@ public class FakePersonDataAccessService implements PersonDao {
         return 1;// we want insertion to be always working
     }
 
+    @Override
+    public List<Person> selectAllPeople() {
+        return DB;
+    }
+
 }

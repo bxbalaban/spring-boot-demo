@@ -1,11 +1,14 @@
 package com.bxbalaban.demo.dao;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.bxbalaban.demo.model.Person;
 
 //We are going to define operations allowed for the implementer
 public interface PersonDao {
+    List<Person> selectAllPeople();
+
     // create a person with id number
     int insertPerson(UUID id, Person person);
 
