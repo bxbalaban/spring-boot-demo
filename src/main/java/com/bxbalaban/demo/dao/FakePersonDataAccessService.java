@@ -35,14 +35,25 @@ public class FakePersonDataAccessService implements PersonDao {
 
     @Override
     public int deletePersonById(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deletePersonById'");
+        Optional<Person> person = selectPersonById(id);
+        if (person.isEmpty())
+            return 0;
+        DB.remove(person.get());
+        return 1;
     }
 
     @Override
-    public int updatePersonById(UUID id, Person person) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updatePersonById'");
+    public int updatePersonById(UUID id, Person update) {
+        return selectPersonById(id)
+                .map(person -> {
+                    int index = DB.indexOf(person);
+                    if (index >= 0) {
+                        DB.set(index, new Person(id, update.getName()));
+                        return 1;
+                    }
+                    return 0;
+                }).orElse(0);
+
     }
 
 }
