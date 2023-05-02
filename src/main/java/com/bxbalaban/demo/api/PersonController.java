@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bxbalaban.demo.model.Person;
 import com.bxbalaban.demo.service.PersonService;
+
+import io.micrometer.common.lang.NonNull;
 
 @RestController // we can provide end points to clients and consume
 @RequestMapping("api/v1/person")
@@ -29,7 +32,7 @@ public class PersonController {
     }
 
     @PostMapping // will serve as a post method
-    public void addPerson(@RequestBody Person person) {
+    public void addPerson(@Validated @NonNull @RequestBody Person person) {
         personService.addPerson(person);
     }
 
@@ -49,7 +52,7 @@ public class PersonController {
     }
 
     @PutMapping(path = "{id}")
-    public void updatePersonById(@PathVariable("id") UUID id, @RequestBody Person newPerson) {
+    public void updatePersonById(@PathVariable("id") UUID id, @Validated @NonNull @RequestBody Person newPerson) {
         personService.updatePersonById(id, newPerson);
     }
 
